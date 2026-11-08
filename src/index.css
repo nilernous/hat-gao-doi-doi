@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Bảng màu theo docs/overview.md mục 6.2 */
+@theme {
+  --color-paddy: #173f30;
+  --color-paddy-700: #1f5040;
+  --color-leaf: #64866b;
+  --color-grain: #e5be65;
+  --color-grain-soft: #f3e3b8;
+  --color-cream: #f6f3ea;
+  --color-cream-200: #ece6d6;
+  --color-ink: #202820;
+  --color-muted: #6d756d;
+
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", ui-serif, Georgia, serif;
+  --font-pixel: "VT323", ui-monospace, monospace;
+  --font-pixel-title: "Tiny5", "VT323", ui-monospace, monospace;
+
+  /* Bảng màu riêng cho bản game pixel */
+  --color-night: #0f1f17;
+  --color-night-700: #183026;
+  --color-outline: #1b2a20;
+}
+
+/* ---------- Pixel art ---------- */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Khung pixel có góc vát (không bo tròn) */
+.pixel-frame {
+  box-shadow:
+    0 -4px 0 0 var(--color-outline),
+    0 4px 0 0 var(--color-outline),
+    -4px 0 0 0 var(--color-outline),
+    4px 0 0 0 var(--color-outline),
+    inset 0 4px 0 0 rgb(255 255 255 / 0.12),
+    inset 0 -4px 0 0 rgb(0 0 0 / 0.25);
+}
+
+.pixel-frame-sm {
+  box-shadow:
+    0 -3px 0 0 var(--color-outline),
+    0 3px 0 0 var(--color-outline),
+    -3px 0 0 0 var(--color-outline),
+    3px 0 0 0 var(--color-outline),
+    inset 0 -3px 0 0 rgb(0 0 0 / 0.22);
+}
+
+.pixel-press:active {
+  transform: translateY(2px);
+}
+
+@keyframes pixel-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4%); }
+}
+@keyframes pixel-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-bob {
+  animation: pixel-bob 1.2s steps(2, jump-none) infinite;
+}
+.animate-blink {
+  animation: pixel-blink 1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-bob,
+  .animate-blink {
+    animation: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-grain);
+  outline-offset: 2px;
+}
